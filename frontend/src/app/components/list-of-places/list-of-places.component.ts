@@ -123,7 +123,7 @@ export class ListOfPlacesComponent implements OnInit {
     }
 
     this.placesService.findStations(placeName).subscribe(() => {
-      this.router.navigate(['/list_of_stations']);
+       return this.router.navigate(['/list_of_stations']);
     });
 
   }
