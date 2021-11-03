@@ -50,7 +50,7 @@ export class FindComponent implements OnInit {
 
     this.placesService.findPlaces(find, where).subscribe(() => {
 
-      return this.router.navigate(['/list_of_places']);
+      this.router.navigate(['/list_of_places']);
 
     });
 

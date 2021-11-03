@@ -77,7 +77,7 @@ export class PlacesService {
       find: find,
       where: where
     };
-
+    return this.http.post(`${this.uri}/places/find`,find_places_at,httpOptions);
 
     /////////////////////////////////////////////////////
     /////////////////////////////////////////////////////
@@ -106,7 +106,7 @@ export class PlacesService {
     };
 
     var str = JSON.stringify(find_stations_at, null, 2);
-
+    return this.http.post(`${this.uri}/stations/find`,find_stations_at,httpOptions);
     /////////////////////////////////////////////////////
     /////////////////////////////////////////////////////
 
