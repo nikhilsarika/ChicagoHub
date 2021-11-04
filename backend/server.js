@@ -593,7 +593,27 @@ async function find_places_from_yelp(place, where) {
     //     }
     //   }
     // }
-    let body = {
+  //   let body = {
+  //     "query": {
+  //       "bool": {
+  //         "must": [
+  //           {
+  //             "match": {
+  //               "location.address1": where
+  //             }
+  //           },
+  //           {
+  //             "match": {
+  //               "categories.alias": place
+  //             }
+  //           }
+  //         ]
+  //       }
+  //     }
+  // }
+
+  let body = {		"size": 1000,
+  "from": 0,
       "query": {
         "bool": {
           "must": [
@@ -607,7 +627,23 @@ async function find_places_from_yelp(place, where) {
                 "categories.alias": place
               }
             }
-          ]
+          ],
+    "must_not" : [{
+             "range" : {
+               "rating" : { "lte" : 3 }
+             }
+           },
+     {
+     "range" : {
+               "review_count" : { "lte" : 500 }
+             }
+     }
+     ],
+     "should" : [
+            { "term" : { "is_closed" : "false" } }
+      ]
+
+
         }
       }
   }
