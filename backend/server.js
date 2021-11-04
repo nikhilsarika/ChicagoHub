@@ -589,7 +589,7 @@ async function find_places_from_yelp(place, where) {
 
 
     results = await esClient.search({index: 'chicago_yelp_reviews', body: body});
-    //console.log(results)
+    console.log(results)
     results.hits.hits.forEach((hit, index) => {
 
 
