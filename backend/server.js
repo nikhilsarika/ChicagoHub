@@ -554,8 +554,6 @@ async function find_places_from_yelp(place, where) {
 
 
     let body = {
-        size: 1000,
-        from: 0,
         "query": {
           "bool": {
             "must": [
