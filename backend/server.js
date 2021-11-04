@@ -561,12 +561,12 @@ async function find_places_from_yelp(place, where) {
             "must": [
               {
                 "match": {
-                  "location.address1": place
+                  "location.address1": where
                 }
               },
               {
                 "match": {
-                  "categories.alias": where
+                  "categories.alias": palce
                 }
               }
             ]
