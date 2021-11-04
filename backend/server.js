@@ -582,7 +582,7 @@ async function find_places_from_yelp(place, where) {
 
             "should" : [
               { "term" : { "is_closed" : "false" } }
-            ],
+            ]
           }
         }
     }
