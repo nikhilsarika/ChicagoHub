@@ -553,23 +553,45 @@ async function find_places_from_yelp(place, where) {
 //////////////////////////////////////////////////////////////////////////////////////
 
 
+    // let body = {
+    //     "size": 1000,
+    //     "from": 0,
+    //     "query": {
+    //       "bool" : {
+    //         "must" : {
+    //            "term" : { "categories.alias" : place }
+    //         },
+
+
+    //         "filter": {
+    //             "term" : { "location.address1" : where  }
+    //         },
+
+
+    //         "must_not" : {
+    //           "range" : {
+    //             "rating" : { "lte" : 3 }
+    //           }
+    //         },
+
+    //         "must_not" : {
+    //           "range" : {
+    //             "review_count" : { "lte" : 500 }
+    //           }
+    //         },
+
+    //         "should" : [
+    //           { "term" : { "is_closed" : "false" } }
+    //         ]
+    //       }
+    //     }
+    // }
     let body = {
-        "query": {
-          "bool": {
-            "must": [
-              {
-                "match": {
-                  "location.address1": place
-                }
-              },
-              {
-                "match": {
-                  "categories.alias": where
-                }
-              }
-            ]
-          }
+      "query": {
+        "match_phrase": {
+          "categories.alias": "seafood"
         }
+      }
     }
 
 
