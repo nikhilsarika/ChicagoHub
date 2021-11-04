@@ -538,7 +538,7 @@ async function find_docks_from_divvyStations(query) {
 async function find_places_from_yelp(place, where) {
     
     places_found = [];
-
+    console.log(place+" and "+where)
 //////////////////////////////////////////////////////////////////////////////////////
 // Using the business name to search for businesses will leead to incomplete results
 // better to search using categorisa/alias and title associated with the business name
