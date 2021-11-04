@@ -586,13 +586,31 @@ async function find_places_from_yelp(place, where) {
     //       }
     //     }
     // }
+    // let body = {
+    //   "query": {
+    //     "match_phrase": {
+    //       "categories.alias": place
+    //     }
+    //   }
+    // }
     let body = {
       "query": {
-        "match_phrase": {
-          "categories.alias": place
+        "bool": {
+          "must": [
+            {
+              "match": {
+                "location.address1": where
+              }
+            },
+            {
+              "match": {
+                "categories.alias": place
+              }
+            }
+          ]
         }
       }
-    }
+  }
 
 
     results = await esClient.search({index: 'chicago_yelp_reviews', body: body});
