@@ -589,7 +589,7 @@ async function find_places_from_yelp(place, where) {
     let body = {
       "query": {
         "match_phrase": {
-          "categories.alias": "seafood"
+          "categories.alias": place
         }
       }
     }
