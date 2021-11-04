@@ -536,7 +536,7 @@ async function find_docks_from_divvyStations(query) {
 
 
 async function find_places_from_yelp(place, where) {
-
+    console.log("inside find places from yelp");
     places_found = [];
 
 //////////////////////////////////////////////////////////////////////////////////////
