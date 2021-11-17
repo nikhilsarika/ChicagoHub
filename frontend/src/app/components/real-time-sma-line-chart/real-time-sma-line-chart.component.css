@@ -1,0 +1,41 @@
+.axis {
+    font: 10px sans-serif;
+}
+
+.axis path,
+.axis line {
+    fill: none;
+    stroke: #000;
+    shape-rendering: crispEdges;
+}
+
+.axis-title {
+    fill: none;
+    stroke: black;
+    stroke-width: 0.5px;
+}
+
+
+.axis--x path {
+    /*display: none;*/
+}
+
+.line {
+    fill: none;
+    stroke: green;
+    stroke-width: 1.5px;
+}
+
+.sma_line_1hr {
+    fill: none;
+    stroke: blue;
+    stroke-width: 1.5px;
+    margin-top: 2px;
+}
+
+.sma_line_24hr {
+    fill: none;
+    stroke: red;
+    stroke-width: 1.5px;
+    margin-top: 2px;
+}
