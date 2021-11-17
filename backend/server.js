@@ -256,7 +256,9 @@ router.route('/stations/find').post((req, res) => {
         if ( places_found[i].name === req.body.placeName ) { // strict equality test
 
             place_selected = places_found[i];
-
+            console.log(place_selected.latitude);
+            console.log("logging lat aswell\n");
+            console.log(place_selected.longitude);
             break;
         }
     }
