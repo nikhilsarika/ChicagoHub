@@ -127,7 +127,7 @@ const routes: Routes = [
 /////////////////////////////////////////////////////////////////////////////////////
 
 
-    AgmCoreModule.forRoot({apiKey: 'ADD_YOUR_API_KEY_HERE'+ '&libraries=visualization'}),
+    AgmCoreModule.forRoot({apiKey: 'AIzaSyByMpg1RcbGqoZhx6AV97dwYgivr_xJYQ8'+ '&libraries=visualization'}),
     FormsModule,
     NgbModule,
     MatCheckboxModule
