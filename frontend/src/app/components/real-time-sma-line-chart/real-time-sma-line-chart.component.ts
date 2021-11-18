@@ -121,9 +121,6 @@ export class RealTimeSMALineComponent implements OnInit {
 
    createPriodicTaskToPullStationDataFromServer(){
 
-       
-       
-
        this.placesService.getStationSelected().subscribe((data: Station) => {
          this.stationSelected = data;
          this.SMALineChart = this.placesService.pulledNewStationDocksDataFromServer(this.placesService.stationNameSelected, this.timeRangeSelected).subscribe(res => {
@@ -339,6 +336,40 @@ export class RealTimeSMALineComponent implements OnInit {
                        .attr("dy", "10px")
                        .style("text-anchor", "start")
                        .text("Real-Time Data" );
+
+             legend.append("rect")
+                       .attr("class", "legend")
+                       .attr("x", 1)
+                       .attr("y", 5)
+                       .attr("width", 15)
+                       .attr("height", 7)
+                       .style("fill", 'blue');
+
+             legend.append("text")
+                       .attr("class", "legendTxt")
+                       .style("font-size", "13px")
+                       .attr("x", 20)
+                       .attr("y", 5)
+                       .attr("dy", "10px")
+                       .style("text-anchor", "start")
+                       .text("SMA - 1 HOUR");
+            
+             legend.append("rect")
+                       .attr("class", "legend")
+                       .attr("x", 1)
+                       .attr("y", 5)
+                       .attr("width", 15)
+                       .attr("height", 7)
+                       .style("fill", 'red');
+
+             legend.append("text")
+                       .attr("class", "legendTxt")
+                       .style("font-size", "13px")
+                       .attr("x", 20)
+                       .attr("y", 5)
+                       .attr("dy", "10px")
+                       .style("text-anchor", "start")
+                       .text("SMA - 24 HOURS");
      }
      else if(timeRange == "24 HOUR") {
                  legend.append("rect")
@@ -357,6 +388,40 @@ export class RealTimeSMALineComponent implements OnInit {
                            .attr("dy", "10px")
                            .style("text-anchor", "start")
                            .text("Real-Time Data");
+                
+                 legend.append("rect")
+                           .attr("class", "legend")
+                           .attr("x", 1)
+                           .attr("y", 5)
+                           .attr("width", 15)
+                           .attr("height", 7)
+                           .style("fill", 'blue');
+
+                 legend.append("text")
+                           .attr("class", "legendTxt")
+                           .style("font-size", "13px")
+                           .attr("x", 20)
+                           .attr("y", 5)
+                           .attr("dy", "10px")
+                           .style("text-anchor", "start")
+                           .text("SMA - 1 HOUR");
+                
+                 legend.append("rect")
+                           .attr("class", "legend")
+                           .attr("x", 1)
+                           .attr("y", 5)
+                           .attr("width", 15)
+                           .attr("height", 7)
+                           .style("fill", 'red');
+
+                 legend.append("text")
+                           .attr("class", "legendTxt")
+                           .style("font-size", "13px")
+                           .attr("x", 20)
+                           .attr("y", 5)
+                           .attr("dy", "10px")
+                           .style("text-anchor", "start")
+                           .text("SMA - 24 HOURS");
            }
            else if(timeRange == "7 DAY") {
                          legend.append("rect")
@@ -375,6 +440,40 @@ export class RealTimeSMALineComponent implements OnInit {
                                    .attr("dy", "10px")
                                    .style("text-anchor", "start")
                                    .text("Real-Time Data");
+                         
+                         legend.append("rect")
+                                   .attr("class", "legend")
+                                   .attr("x", 1)
+                                   .attr("y", 5)
+                                   .attr("width", 15)
+                                   .attr("height", 7)
+                                   .style("fill", 'blue');
+
+                         legend.append("text")
+                                   .attr("class", "legendTxt")
+                                   .style("font-size", "13px")
+                                   .attr("x", 20)
+                                   .attr("y", 5)
+                                   .attr("dy", "10px")
+                                   .style("text-anchor", "start")
+                                   .text("SMA - 1 HOUR");
+                        
+                         legend.append("rect")
+                                   .attr("class", "legend")
+                                   .attr("x", 1)
+                                   .attr("y", 5)
+                                   .attr("width", 15)
+                                   .attr("height", 7)
+                                   .style("fill", 'red');
+
+                         legend.append("text")
+                                   .attr("class", "legendTxt")
+                                   .style("font-size", "13px")
+                                   .attr("x", 20)
+                                   .attr("y", 5)
+                                   .attr("dy", "10px")
+                                   .style("text-anchor", "start")
+                                   .text("SMA - 24 HOURS");
                  }
 
    }
