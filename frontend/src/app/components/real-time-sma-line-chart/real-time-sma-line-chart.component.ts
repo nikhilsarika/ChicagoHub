@@ -340,7 +340,7 @@ export class RealTimeSMALineComponent implements OnInit {
              legend.append("rect")
                        .attr("class", "legend")
                        .attr("x", 1)
-                       .attr("y", 10)
+                       .attr("y", 20)
                        .attr("width", 15)
                        .attr("height", 7)
                        .style("fill", 'blue');
@@ -349,7 +349,7 @@ export class RealTimeSMALineComponent implements OnInit {
                        .attr("class", "legendTxt")
                        .style("font-size", "13px")
                        .attr("x", 20)
-                       .attr("y", 10)
+                       .attr("y", 20)
                        .attr("dy", "10px")
                        .style("text-anchor", "start")
                        .text("SMA - 1 HOUR");
@@ -357,7 +357,7 @@ export class RealTimeSMALineComponent implements OnInit {
              legend.append("rect")
                        .attr("class", "legend")
                        .attr("x", 1)
-                       .attr("y", 15)
+                       .attr("y", 35)
                        .attr("width", 15)
                        .attr("height", 7)
                        .style("fill", 'red');
@@ -366,7 +366,7 @@ export class RealTimeSMALineComponent implements OnInit {
                        .attr("class", "legendTxt")
                        .style("font-size", "13px")
                        .attr("x", 20)
-                       .attr("y", 15)
+                       .attr("y", 35)
                        .attr("dy", "10px")
                        .style("text-anchor", "start")
                        .text("SMA - 24 HOURS");
@@ -392,7 +392,7 @@ export class RealTimeSMALineComponent implements OnInit {
                  legend.append("rect")
                            .attr("class", "legend")
                            .attr("x", 1)
-                           .attr("y", 5)
+                           .attr("y", 20)
                            .attr("width", 15)
                            .attr("height", 7)
                            .style("fill", 'blue');
@@ -401,7 +401,7 @@ export class RealTimeSMALineComponent implements OnInit {
                            .attr("class", "legendTxt")
                            .style("font-size", "13px")
                            .attr("x", 20)
-                           .attr("y", 5)
+                           .attr("y", 20)
                            .attr("dy", "10px")
                            .style("text-anchor", "start")
                            .text("SMA - 1 HOUR");
@@ -409,7 +409,7 @@ export class RealTimeSMALineComponent implements OnInit {
                  legend.append("rect")
                            .attr("class", "legend")
                            .attr("x", 1)
-                           .attr("y", 5)
+                           .attr("y", 35)
                            .attr("width", 15)
                            .attr("height", 7)
                            .style("fill", 'red');
@@ -418,7 +418,7 @@ export class RealTimeSMALineComponent implements OnInit {
                            .attr("class", "legendTxt")
                            .style("font-size", "13px")
                            .attr("x", 20)
-                           .attr("y", 5)
+                           .attr("y", 35)
                            .attr("dy", "10px")
                            .style("text-anchor", "start")
                            .text("SMA - 24 HOURS");
@@ -444,7 +444,7 @@ export class RealTimeSMALineComponent implements OnInit {
                          legend.append("rect")
                                    .attr("class", "legend")
                                    .attr("x", 1)
-                                   .attr("y", 5)
+                                   .attr("y", 20)
                                    .attr("width", 15)
                                    .attr("height", 7)
                                    .style("fill", 'blue');
@@ -453,7 +453,7 @@ export class RealTimeSMALineComponent implements OnInit {
                                    .attr("class", "legendTxt")
                                    .style("font-size", "13px")
                                    .attr("x", 20)
-                                   .attr("y", 5)
+                                   .attr("y", 20)
                                    .attr("dy", "10px")
                                    .style("text-anchor", "start")
                                    .text("SMA - 1 HOUR");
@@ -461,7 +461,7 @@ export class RealTimeSMALineComponent implements OnInit {
                          legend.append("rect")
                                    .attr("class", "legend")
                                    .attr("x", 1)
-                                   .attr("y", 5)
+                                   .attr("y", 35)
                                    .attr("width", 15)
                                    .attr("height", 7)
                                    .style("fill", 'red');
@@ -470,7 +470,7 @@ export class RealTimeSMALineComponent implements OnInit {
                                    .attr("class", "legendTxt")
                                    .style("font-size", "13px")
                                    .attr("x", 20)
-                                   .attr("y", 5)
+                                   .attr("y", 35)
                                    .attr("dy", "10px")
                                    .style("text-anchor", "start")
                                    .text("SMA - 24 HOURS");
