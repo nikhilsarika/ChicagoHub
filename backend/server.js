@@ -987,7 +987,7 @@ async function get_divvy_station_log(stationName, timeRange) {
 
 
     results = await esClient.search({index: 'divvy_station_logs', body: body});
-
+    console.log(results);
     results.hits.hits.forEach((hit, index) => {
 
       var docks = {
