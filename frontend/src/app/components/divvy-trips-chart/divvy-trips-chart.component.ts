@@ -161,6 +161,58 @@ export class DivvyTripsChartComponent implements OnInit {
               this.drawAxis();
               this.updateChartBars(this.divvyTripsCounts);})
         }
+        else if(day == 3){
+          this.chart_3_name = 'Wednesday';
+          this.placesService
+            .getDivvyTripsCountsForWednesday()
+            .subscribe((data: divvyTripsCountPerDay[]) => {
+              this.divvyTripsCounts = data;
+
+              console.log(this.divvyTripsCounts);
+              var id="#svg3"; this.initSvg(id);
+              this.initAxis();
+              this.drawAxis();
+              this.updateChartBars(this.divvyTripsCounts);})
+        }
+        else if(day == 4){
+          this.chart_4_name = 'Thursday';
+          this.placesService
+            .getDivvyTripsCountsForThursday()
+            .subscribe((data: divvyTripsCountPerDay[]) => {
+              this.divvyTripsCounts = data;
+
+              console.log(this.divvyTripsCounts);
+              var id="#svg4"; this.initSvg(id);
+              this.initAxis();
+              this.drawAxis();
+              this.updateChartBars(this.divvyTripsCounts);})
+        }
+        else if(day == 5){
+          this.chart_5_name = 'Friday';
+          this.placesService
+            .getDivvyTripsCountsForFriday()
+            .subscribe((data: divvyTripsCountPerDay[]) => {
+              this.divvyTripsCounts = data;
+
+              console.log(this.divvyTripsCounts);
+              var id="#svg5"; this.initSvg(id);
+              this.initAxis();
+              this.drawAxis();
+              this.updateChartBars(this.divvyTripsCounts);})
+        }
+        else if(day == 6){
+          this.chart_6_name = 'Saturday';
+          this.placesService
+            .getDivvyTripsCountsForSaturday()
+            .subscribe((data: divvyTripsCountPerDay[]) => {
+              this.divvyTripsCounts = data;
+
+              console.log(this.divvyTripsCounts);
+              var id="#svg6"; this.initSvg(id);
+              this.initAxis();
+              this.drawAxis();
+              this.updateChartBars(this.divvyTripsCounts);})
+        }
 
     /////////////////////////////////////////////////////
     /////////////////////////////////////////////////////
