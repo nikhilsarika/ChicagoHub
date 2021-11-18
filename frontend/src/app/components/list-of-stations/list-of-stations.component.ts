@@ -167,7 +167,7 @@ export class ListOfStationsComponent implements OnInit {
     console.log(stationName);
     this.timeLimit = "1 HOUR";
 
-    const realTimeLineChart = new RealTimeLineComponent(this.placesService);
+    const realTimeLineChart = new RealTimeSMALineComponent(this.placesService);
 
     this.router.navigate(['/sma_chart']);
 
