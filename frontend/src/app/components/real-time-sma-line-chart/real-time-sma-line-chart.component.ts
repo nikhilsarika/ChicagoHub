@@ -96,7 +96,9 @@ export class RealTimeSMALineComponent implements OnInit {
 
 
     ngOnInit() {
-      
+        if (this.SMALineChart !== undefined) {
+            this.SMALineChart.unsubscribe();
+   }
         this.timeRangeSelected ="1 HOUR";
         this.stationNameSelected = this.placesService.stationNameSelected;
         this.title = 'Divvy Dock Station:    ' + this.stationNameSelected;
@@ -120,6 +122,10 @@ export class RealTimeSMALineComponent implements OnInit {
 
 
    createPriodicTaskToPullStationDataFromServer(){
+
+    if (this.SMALineChart !== undefined) {
+        this.SMALineChart.unsubscribe();
+}
 
        this.placesService.getStationSelected().subscribe((data: Station) => {
          this.stationSelected = data;
@@ -148,6 +154,10 @@ export class RealTimeSMALineComponent implements OnInit {
 
 
    create_d3_chart(stationName,placesService,timeRange) {
+
+    if (this.SMALineChart !== undefined) {
+        this.SMALineChart.unsubscribe();
+}
      
 
      this.stationNameSelected = stationName;
