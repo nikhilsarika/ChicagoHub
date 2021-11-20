@@ -55,6 +55,7 @@ export class RealTimeSMALineComponent implements OnInit {
     private width: number;
     docks: Dock[];
     validDocks: Dock[];
+
     timeRangeSelected: string;
 
     stationSelected:Station;
@@ -321,6 +322,7 @@ export class RealTimeSMALineComponent implements OnInit {
    }
 
    private claculate_sma(){
+       this.validDocks = [];
        var uniqueDocks: Dock[] = this.getUniqueListBy(this.docks,'lastCommunicationTime') as Dock[];
        uniqueDocks.forEach(element => {
             var currentTime = new Date();
