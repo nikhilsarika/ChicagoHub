@@ -328,7 +328,7 @@ export class RealTimeSMALineComponent implements OnInit {
             var last24Hours = new Date(currentTime.getTime()- (24 * -60 * 60 * 1000));
             var timeFromDocks = new Date(element.lastCommunicationTime.replace(/-/g,'/').toString())
             if(timeFromDocks>lastHour){
-                this.validDocks.push(element);
+                this.validDocks.push(element as Dock);
             }
         });
         console.log(this.validDocks);
