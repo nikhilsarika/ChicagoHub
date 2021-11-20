@@ -316,7 +316,6 @@ export class RealTimeSMALineComponent implements OnInit {
    }
 
    private create_d3_movingAverageLine1() {
-    console.log("The list of logs "+d.availableDocks)
     this.movingAverageLine1 = d3Shape.line()
          .x( (d: any) => this.x(new Date(d.lastCommunicationTime.replace(/-/g,'/').toString()) ))
          .y( (d: any) => this.y(d.availableDocks) );
