@@ -180,7 +180,7 @@ export class RealTimeSMALineComponent implements OnInit {
           .getDocks()
              .subscribe((data: Dock[]) => {
                    this.docks = data;
-                   console.log(this.docks);
+                   console.log(this.getUniqueListBy(this.docks,'lastCommunicationTime'));
                    this.updateChart();
                    this.initSvg();
                    this.initAxis();
@@ -313,6 +313,20 @@ export class RealTimeSMALineComponent implements OnInit {
             .attr('d', this.line);
 
 
+   }
+
+   private claculate_sma(){
+       var validDocks: Dock[];
+        this.docks.forEach(element => {
+            var currentTime = new Date();
+            var lastHour= new Date(currentTime.getTime()-60 * 60 * 1000);
+            var last24Hours = new Date(currentTime.getTime()- (24 * -60 * 60 * 1000));
+            var timeFromDocks = new Date(element.lastCommunicationTime.replace(/-/g,'/').toString())
+        });
+   }
+
+   private getUniqueListBy(arr, key) {
+    return [...new Map(arr.map(item => [item[key], item])).values()]
    }
 
    private create_d3_movingAverageLine1() {
