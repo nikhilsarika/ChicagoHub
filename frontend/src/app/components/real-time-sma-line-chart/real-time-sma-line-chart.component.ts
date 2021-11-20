@@ -54,6 +54,7 @@ export class RealTimeSMALineComponent implements OnInit {
     private margin = {top: 50, right: 20, bottom: 30, left: 150};
     private width: number;
     docks: Dock[];
+    validDocks: Dock[];
     timeRangeSelected: string;
 
     stationSelected:Station;
@@ -183,6 +184,7 @@ export class RealTimeSMALineComponent implements OnInit {
                 //    console.log("all docks: "+this.docks)
                    var uniqueDocks = this.getUniqueListBy(this.docks,'lastCommunicationTime');
                    console.log(uniqueDocks);
+                   console.log('after unique docks')
                    this.updateChart();
                    this.initSvg();
                    this.initAxis();
@@ -191,6 +193,7 @@ export class RealTimeSMALineComponent implements OnInit {
                    this.create_d3_line();
                    this.create_d3_movingAverageLine();
                    this.create_d3_movingAverageLine1();
+                   this.claculate_sma();
              });
    }
 
@@ -318,13 +321,17 @@ export class RealTimeSMALineComponent implements OnInit {
    }
 
    private claculate_sma(){
-       var validDocks: Dock[];
-        this.docks.forEach(element => {
+       var uniqueDocks: Dock[] = this.getUniqueListBy(this.docks,'lastCommunicationTime');
+       uniqueDocks.forEach(element => {
             var currentTime = new Date();
             var lastHour= new Date(currentTime.getTime()-60 * 60 * 1000);
             var last24Hours = new Date(currentTime.getTime()- (24 * -60 * 60 * 1000));
             var timeFromDocks = new Date(element.lastCommunicationTime.replace(/-/g,'/').toString())
+            if(timeFromDocks>lastHour){
+                this.validDocks.push(element);
+            }
         });
+        console.log(this.validDocks);
    }
 
    private getUniqueListBy(arr, key) {
