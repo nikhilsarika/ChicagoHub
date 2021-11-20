@@ -321,7 +321,7 @@ export class RealTimeSMALineComponent implements OnInit {
    }
 
    private claculate_sma(){
-       var uniqueDocks: Dock[] = this.getUniqueListBy(this.docks,'lastCommunicationTime');
+       var uniqueDocks: Dock[] = this.getUniqueListBy(this.docks,'lastCommunicationTime') as Dock[];
        uniqueDocks.forEach(element => {
             var currentTime = new Date();
             var lastHour= new Date(currentTime.getTime()-60 * 60 * 1000);
