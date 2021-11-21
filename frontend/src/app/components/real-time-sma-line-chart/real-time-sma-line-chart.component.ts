@@ -370,8 +370,8 @@ export class RealTimeSMALineComponent implements OnInit {
                         sma24 = Math.floor(sum24 / this.validDocks24Hours.length);
                         console.log('log 6 : sma '+sma);
                         console.log('log 7 : sma24 '+sma24);
-                        element.sma_hour = Number(sma);
-                        element.sma_24hours = Number(sma24);
+                        element.smaHour = Number(sma);
+                        element.sma24hours = Number(sma24);
                         // console.log('log 8 : element after updatation');
                         // console.log(element);
                     });
@@ -388,7 +388,7 @@ export class RealTimeSMALineComponent implements OnInit {
    private create_d3_movingAverageLine1() {
     this.movingAverageLine1 = d3Shape.line()
          .x( (d: any) => this.x(new Date(d.lastCommunicationTime.replace(/-/g,'/').toString()) ))
-         .y( (d: any) => this.y(d.sma_24hours) );
+         .y( (d: any) => this.y(d.sma24hours) );
     this.svg.append('path')
          .datum(this.uniqueDocks)
          .attr('class', 'sma_line_24hr')
@@ -401,7 +401,7 @@ export class RealTimeSMALineComponent implements OnInit {
         console.log(this.uniqueDocks);
         this.movingAverageLine = d3Shape.line()
              .x( (d: any) => this.x(new Date(d.lastCommunicationTime.replace(/-/g,'/').toString()) ))
-             .y( (d: any) => this.y(d.sma_hour) );
+             .y( (d: any) => this.y(d.smaHour) );
         this.svg.append('path')
              .datum(this.uniqueDocks)
              .attr('class', 'sma_line_1hr')
