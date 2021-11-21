@@ -55,7 +55,7 @@ export class RealTimeSMALineComponent implements OnInit {
     private width: number;
     docks: Dock[];
     validDocks: Dock[];
-
+    requiredDockData : Dock[] ;
     timeRangeSelected: string;
 
     stationSelected:Station;
@@ -184,8 +184,9 @@ export class RealTimeSMALineComponent implements OnInit {
                    this.docks = data;
                 //    console.log("all docks: "+this.docks)
                    var uniqueDocks = this.getUniqueListBy(this.docks,'lastCommunicationTime');
+                   console.log('log1: unique docks')
                    console.log(uniqueDocks);
-                   console.log('after unique docks')
+                   
                    this.updateChart();
                    this.initSvg();
                    this.initAxis();
@@ -324,17 +325,14 @@ export class RealTimeSMALineComponent implements OnInit {
    private claculate_sma(){
        this.validDocks = [];
        var uniqueDocks: Dock[] = this.getUniqueListBy(this.docks,'lastCommunicationTime') as Dock[];
-       var requiredDockData : Dock[] ;
-       requiredDockData = [];
-       console.log('stationSelected.stationName'+this.stationSelected.stationName);
-       console.log('stationNameSelected'+this.stationNameSelected);
        this.placesService.getStationDocksLog(this.stationSelected.stationName,'48 HOUR').subscribe(
            docksData => {
-                console.log("logging docks data");
+                console.log('log2: docksData')
                 console.log(docksData);
-                requiredDockData = docksData as Dock[];
+                this.requiredDockData = docksData as Dock[];
            }
        );
+       console.log('log3: requiredDockData')
        console.log(requiredDockData);
        console.log('after reqired dock data');
        uniqueDocks.forEach(element => {
