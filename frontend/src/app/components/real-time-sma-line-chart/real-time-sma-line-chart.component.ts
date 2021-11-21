@@ -186,12 +186,12 @@ export class RealTimeSMALineComponent implements OnInit {
                    
                 //    console.log("all docks: "+this.docks)
                    this.uniqueDocks = this.getUniqueListBy(data,'lastCommunicationTime') as Dock[];
-                   console.log('log1: unique docks')
-                   console.log(this.uniqueDocks);
+                //    console.log('log1: unique docks')
+                //    console.log(this.uniqueDocks);
                    this.docks = this.uniqueDocks;
                    this.claculate_sma(this.uniqueDocks);
-                   console.log('log 9 : uniqueDocks after updatation');
-                   console.log(this.uniqueDocks);
+                //    console.log('log 9 : uniqueDocks after updatation');
+                //    console.log(this.uniqueDocks);
                    this.updateChart();
                    this.initSvg();
                    this.initAxis();
@@ -371,54 +371,14 @@ export class RealTimeSMALineComponent implements OnInit {
                         console.log('log 7 : sma24 '+sma24);
                         element.sma_hour = Number(sma);
                         element.sma_24hours = Number(sma24);
-                        console.log('log 8 : element after updatation');
-                        console.log(element);
+                        // console.log('log 8 : element after updatation');
+                        // console.log(element);
                     });
                 }
            }
        );
-    //    console.log('log3: requiredDockData')
-    //    console.log(this.requiredDockData);
-    //    console.log('after reqired dock data');
-    //    uniqueDocks.forEach(element => {
-    //         var currentTime = new Date();
-    //         var lastHour= new Date(currentTime.getTime()-60 * 60 * 1000);
-    //         var last24Hours = new Date(currentTime.getTime()- (24 * -60 * 60 * 1000));
-    //         var timeFromDocks = new Date(element.lastCommunicationTime.replace(/-/g,'/').toString())
-    //         if(timeFromDocks>lastHour){
-    //             this.validDocks.push(element as Dock);
-    //         }
-    //     });
-    //     console.log('log4: validDocks')
-    //     console.log(this.validDocks);
-    //     console.log('log5: end of logs')
    }
 
-   private calculate_sma_1hr(uniqueDocks,totalDocksData){
-        if (uniqueDocks !== undefined){
-            uniqueDocks.forEach(element => {
-                var currentTime = new Date();
-                var lastHour= new Date(currentTime.getTime()-60 * 60 * 1000);
-                var last24Hours = new Date(currentTime.getTime()- (24 * -60 * 60 * 1000));
-                var timeFromDocks = new Date(element.lastCommunicationTime.replace(/-/g,'/').toString());
-                timeFromDocks = new Date(timeFromDocks.getTime()-60 * 60 * 1000);
-                
-                totalDocksData.array.forEach(totalDocksElement => {
-                    var timeFromTotalDocks = new Date(totalDocksElement.lastCommunicationTime.replace(/-/g,'/').toString());
-                    if(timeFromTotalDocks>timeFromDocks){
-                        this.validDocks.push(totalDocksElement as Dock);
-                    }
-                });
-                var sum : number= 0;
-                var sma : any;
-                this.validDocks.forEach(totalDocksElement => {
-                    sum = sum + totalDocksElement.availableDocks.valueOf();
-                });
-                sma = sum / this.validDocks.length;
-                console.log('log 6 : sma '+sma);
-            });
-        }
-   }
 
    private getUniqueListBy(arr, key) {
     return [...new Map(arr.map(item => [item[key], item])).values()]
