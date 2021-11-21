@@ -328,12 +328,14 @@ export class RealTimeSMALineComponent implements OnInit {
            docksData => {
                 console.log('log2: docksData')
                 console.log(docksData);
+                var totalDocks : Dock[]= docksData as Dock[];
+                console.log(totalDocks);
                 if (uniqueDocks !== undefined){
                     uniqueDocks.forEach(element => {
                         var timeFromDocks = new Date(element.lastCommunicationTime.replace(/-/g,'/').toString());
                         timeFromDocks = new Date(timeFromDocks.getTime()-60 * 60 * 1000);
                         
-                        docksData.array.forEach(totalDocksElement => {
+                        docksData.forEach(totalDocksElement => {
                             var timeFromTotalDocks = new Date(totalDocksElement.lastCommunicationTime.replace(/-/g,'/').toString());
                             if(timeFromTotalDocks>timeFromDocks){
                                 this.validDocks.push(totalDocksElement as Dock);
