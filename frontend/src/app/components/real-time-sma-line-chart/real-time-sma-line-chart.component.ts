@@ -324,6 +324,7 @@ export class RealTimeSMALineComponent implements OnInit {
 
    private claculate_sma(uniqueDocks){
        this.validDocks = [];
+       this.validDocks24Hours = [];
        this.placesService.getStationDocksLog(this.stationSelected.stationName,'48 HOUR').subscribe(
            docksData => {
                 console.log('log2: docksData')
@@ -333,21 +334,34 @@ export class RealTimeSMALineComponent implements OnInit {
                 if (uniqueDocks !== undefined){
                     uniqueDocks.forEach(element => {
                         var timeFromDocks = new Date(element.lastCommunicationTime.replace(/-/g,'/').toString());
-                        timeFromDocks = new Date(timeFromDocks.getTime()-60 * 60 * 1000);
-                        
+                        timeLastOneHour = new Date(timeFromDocks.getTime()-60 * 60 * 1000);
+                        timeLast24Hours = new Date(timeFromDocks.getTime()-(24 * -60 * 60 * 1000));
                         totalDocks.forEach(totalDocksElement => {
                             var timeFromTotalDocks = new Date(totalDocksElement.lastCommunicationTime.replace(/-/g,'/').toString());
-                            if(timeFromTotalDocks>timeFromDocks){
+                            if(timeFromTotalDocks>timeLastOneHour){
+                                this.validDocks.push(totalDocksElement as Dock);
+                            }
+                        });
+                        totalDocks.forEach(totalDocksElement => {
+                            var timeFromTotalDocks = new Date(totalDocksElement.lastCommunicationTime.replace(/-/g,'/').toString());
+                            if(timeFromTotalDocks>timeLast24Hours){
                                 this.validDocks.push(totalDocksElement as Dock);
                             }
                         });
                         var sum : number= 0;
                         var sma : any;
+                        var sum24 : number= 0;
+                        var sma24 : any;
                         this.validDocks.forEach(totalDocksElement => {
                             sum = sum + totalDocksElement.availableDocks.valueOf();
                         });
+                        this.validDocks24Hours.forEach(totalDocksElement => {
+                            sum24 = sum24 + totalDocksElement.availableDocks.valueOf();
+                        });
                         sma = sum / this.validDocks.length;
+                        sma24 = sum24 / this.validDocks24Hours.length;
                         console.log('log 6 : sma '+sma);
+                        console.log('log 7 : sma24 '+sma24);
                     });
                 }
            }
