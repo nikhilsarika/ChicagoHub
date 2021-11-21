@@ -349,27 +349,29 @@ export class RealTimeSMALineComponent implements OnInit {
    }
 
    private calculate_sma_1hr(uniqueDocks,totalDocksData){
-    uniqueDocks.forEach(element => {
-        var currentTime = new Date();
-        var lastHour= new Date(currentTime.getTime()-60 * 60 * 1000);
-        var last24Hours = new Date(currentTime.getTime()- (24 * -60 * 60 * 1000));
-        var timeFromDocks = new Date(element.lastCommunicationTime.replace(/-/g,'/').toString());
-        timeFromDocks = new Date(timeFromDocks.getTime()-60 * 60 * 1000);
-        
-        totalDocksData.array.forEach(totalDocksElement => {
-            var timeFromTotalDocks = new Date(totalDocksElement.lastCommunicationTime.replace(/-/g,'/').toString());
-            if(timeFromTotalDocks>timeFromDocks){
-                this.validDocks.push(totalDocksElement as Dock);
-            }
-        });
-        var sum : number= 0;
-        var sma : any;
-        this.validDocks.forEach(totalDocksElement => {
-            sum = sum + totalDocksElement.availableDocks.valueOf();
-        });
-        sma = sum / this.validDocks.length;
-        console.log('log 6 : sma '+sma);
-    });
+        if (uniqueDocks !== undefined){
+            uniqueDocks.forEach(element => {
+                var currentTime = new Date();
+                var lastHour= new Date(currentTime.getTime()-60 * 60 * 1000);
+                var last24Hours = new Date(currentTime.getTime()- (24 * -60 * 60 * 1000));
+                var timeFromDocks = new Date(element.lastCommunicationTime.replace(/-/g,'/').toString());
+                timeFromDocks = new Date(timeFromDocks.getTime()-60 * 60 * 1000);
+                
+                totalDocksData.array.forEach(totalDocksElement => {
+                    var timeFromTotalDocks = new Date(totalDocksElement.lastCommunicationTime.replace(/-/g,'/').toString());
+                    if(timeFromTotalDocks>timeFromDocks){
+                        this.validDocks.push(totalDocksElement as Dock);
+                    }
+                });
+                var sum : number= 0;
+                var sma : any;
+                this.validDocks.forEach(totalDocksElement => {
+                    sum = sum + totalDocksElement.availableDocks.valueOf();
+                });
+                sma = sum / this.validDocks.length;
+                console.log('log 6 : sma '+sma);
+            });
+        }
    }
 
    private getUniqueListBy(arr, key) {
