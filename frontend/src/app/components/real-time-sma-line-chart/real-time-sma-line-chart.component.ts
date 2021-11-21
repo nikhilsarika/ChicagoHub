@@ -181,12 +181,12 @@ export class RealTimeSMALineComponent implements OnInit {
         placesService
           .getDocks()
              .subscribe((data: Dock[]) => {
-                   this.docks = data;
+                   
                 //    console.log("all docks: "+this.docks)
                    var uniqueDocks = this.getUniqueListBy(this.docks,'lastCommunicationTime') as Dock[];
                    console.log('log1: unique docks')
                    console.log(uniqueDocks);
-                   
+                   this.docks = uniqueDocks;
                    this.updateChart();
                    this.initSvg();
                    this.initAxis();
