@@ -350,7 +350,7 @@ export class RealTimeSMALineComponent implements OnInit {
                             }
                         });
                         console.log('log 8 : validDocks24Hours');
-                        console.log(validDocks24Hours);
+                        console.log(this.validDocks24Hours);
                         var sum : number= 0;
                         var sma : any;
                         var sum24 : number= 0;
