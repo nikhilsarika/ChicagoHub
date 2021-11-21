@@ -188,6 +188,7 @@ export class RealTimeSMALineComponent implements OnInit {
                    console.log('log1: unique docks')
                    console.log(uniqueDocks);
                    this.docks = uniqueDocks;
+                   this.claculate_sma(uniqueDocks);
                    this.updateChart();
                    this.initSvg();
                    this.initAxis();
@@ -196,7 +197,7 @@ export class RealTimeSMALineComponent implements OnInit {
                    this.create_d3_line();
                    this.create_d3_movingAverageLine();
                    this.create_d3_movingAverageLine1();
-                   this.claculate_sma(uniqueDocks);
+                   
              });
    }
 
@@ -423,7 +424,7 @@ export class RealTimeSMALineComponent implements OnInit {
    private create_d3_movingAverageLine1() {
     this.movingAverageLine1 = d3Shape.line()
          .x( (d: any) => this.x(new Date(d.lastCommunicationTime.replace(/-/g,'/').toString()) ))
-         .y( (d: any) => this.y(d.availableDocks) );
+         .y( (d: any) => this.y(d.sma_24hours) );
     this.svg.append('path')
          .datum(this.docks)
          .attr('class', 'sma_line_24hr')
@@ -434,7 +435,7 @@ export class RealTimeSMALineComponent implements OnInit {
     private create_d3_movingAverageLine() {
         this.movingAverageLine = d3Shape.line()
              .x( (d: any) => this.x(new Date(d.lastCommunicationTime.replace(/-/g,'/').toString()) ))
-             .y( (d: any) => this.y(d.availableDocks) );
+             .y( (d: any) => this.y(d.sma_hour) );
         this.svg.append('path')
              .datum(this.docks)
              .attr('class', 'sma_line_1hr')
