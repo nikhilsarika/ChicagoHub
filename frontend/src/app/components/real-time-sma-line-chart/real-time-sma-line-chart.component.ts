@@ -324,6 +324,9 @@ export class RealTimeSMALineComponent implements OnInit {
    private claculate_sma(){
        this.validDocks = [];
        var uniqueDocks: Dock[] = this.getUniqueListBy(this.docks,'lastCommunicationTime') as Dock[];
+       var requiredDockData : Dock[] = placesService.getStationDocksLog(this.stationNameSelected,'48 HOUR') as Dock[];
+       console.log(requiredDockData);
+       console.log('after reqired dock data');
        uniqueDocks.forEach(element => {
             var currentTime = new Date();
             var lastHour= new Date(currentTime.getTime()-60 * 60 * 1000);

@@ -938,6 +938,10 @@ async function get_divvy_station_log(stationName, timeRange) {
   else if(timeRange==='7 DAY'||'7 Day'){
     var deduction = 7*24 * 60 * 60 * 1000; /* ms */
   }
+  else if(timeRange==='48 HOUR'){
+    var deduction = 48 * 60 * 60 * 1000; /* ms */
+  }
+
   else{
     console.log("Not a valid time limit");
   }
