@@ -330,6 +330,8 @@ export class RealTimeSMALineComponent implements OnInit {
        console.log('stationNameSelected'+this.stationNameSelected);
        this.placesService.getStationDocksLog(this.stationSelected.stationName,'48 HOUR').subscribe(
            docksData => {
+                console.log("logging docks data");
+                console.log(docksData);
                 requiredDockData = docksData as Dock[];
            }
        );
