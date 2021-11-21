@@ -183,7 +183,7 @@ export class RealTimeSMALineComponent implements OnInit {
              .subscribe((data: Dock[]) => {
                    
                 //    console.log("all docks: "+this.docks)
-                   var uniqueDocks = this.getUniqueListBy(this.docks,'lastCommunicationTime') as Dock[];
+                   var uniqueDocks = this.getUniqueListBy(data,'lastCommunicationTime') as Dock[];
                    console.log('log1: unique docks')
                    console.log(uniqueDocks);
                    this.docks = uniqueDocks;
