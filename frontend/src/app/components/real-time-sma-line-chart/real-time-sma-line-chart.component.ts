@@ -189,6 +189,8 @@ export class RealTimeSMALineComponent implements OnInit {
                    console.log(uniqueDocks);
                    this.docks = uniqueDocks;
                    this.claculate_sma(uniqueDocks);
+                   console.log('log 9 : uniqueDocks after updatation');
+                   console.log(uniqueDocks);
                    this.updateChart();
                    this.initSvg();
                    this.initAxis();
