@@ -349,6 +349,8 @@ export class RealTimeSMALineComponent implements OnInit {
                                 this.validDocks24Hours.push(totalDocksElement as Dock);
                             }
                         });
+                        console.log('log 8 : validDocks24Hours');
+                        console.log(validDocks24Hours);
                         var sum : number= 0;
                         var sma : any;
                         var sum24 : number= 0;
