@@ -389,7 +389,7 @@ export class RealTimeSMALineComponent implements OnInit {
          .x( (d: any) => this.x(new Date(d.lastCommunicationTime.replace(/-/g,'/').toString()) ))
          .y( (d: any) => this.y(d.sma_24hours) );
     this.svg.append('path')
-         .datum(this.docks)
+         .datum(this.uniqueDocks)
          .attr('class', 'sma_line_24hr')
          .attr('d', this.movingAverageLine1);
 
@@ -400,7 +400,7 @@ export class RealTimeSMALineComponent implements OnInit {
              .x( (d: any) => this.x(new Date(d.lastCommunicationTime.replace(/-/g,'/').toString()) ))
              .y( (d: any) => this.y(d.sma_hour) );
         this.svg.append('path')
-             .datum(this.docks)
+             .datum(this.uniqueDocks)
              .attr('class', 'sma_line_1hr')
              .attr('d', this.movingAverageLine);
     
