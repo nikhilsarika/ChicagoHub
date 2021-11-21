@@ -333,7 +333,7 @@ export class RealTimeSMALineComponent implements OnInit {
            }
        );
        console.log('log3: requiredDockData')
-       console.log(requiredDockData);
+       console.log(this.requiredDockData);
        console.log('after reqired dock data');
        uniqueDocks.forEach(element => {
             var currentTime = new Date();
