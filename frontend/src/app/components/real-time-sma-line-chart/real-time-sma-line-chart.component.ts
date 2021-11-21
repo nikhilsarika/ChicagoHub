@@ -399,6 +399,9 @@ export class RealTimeSMALineComponent implements OnInit {
     private create_d3_movingAverageLine() {
         console.log('log 10 : inside moving average line');
         console.log(this.uniqueDocks);
+        console.log(this.uniqueDocks[0]);
+        console.log('smaHour '+this.uniqueDocks[0].smaHour);
+        console.log('availableDocks '+this.uniqueDocks[0].availableDocks);
         console.log('type of smaHour '+typeof this.uniqueDocks[0].smaHour);
         console.log('type of availableDocks '+typeof this.uniqueDocks[0].availableDocks);
         this.movingAverageLine = d3Shape.line()
