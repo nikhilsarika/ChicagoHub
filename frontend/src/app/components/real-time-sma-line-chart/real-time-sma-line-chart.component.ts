@@ -397,6 +397,8 @@ export class RealTimeSMALineComponent implements OnInit {
 
     }
     private create_d3_movingAverageLine() {
+        console.log('log 10 : inside moving average line');
+        console.log(this.uniqueDocks);
         this.movingAverageLine = d3Shape.line()
              .x( (d: any) => this.x(new Date(d.lastCommunicationTime.replace(/-/g,'/').toString()) ))
              .y( (d: any) => this.y(d.sma_hour) );
