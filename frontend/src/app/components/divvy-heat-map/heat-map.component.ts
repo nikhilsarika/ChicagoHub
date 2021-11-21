@@ -161,12 +161,12 @@ export class HeatMapComponent implements OnInit{
     } 
     else if (this.timeRangeSelected == this.PAST_24_HOURS){
       this.noOfDivvyDataSamplesRequested = this.FRAMES_PER_DAY;
-      startTimeForDataCollection = new Date(currentTime.getTime()- (24 * -60 * 60 * 1000));
+      startTimeForDataCollection = new Date(currentTime.getTime()- (24 * 60 * 60 * 1000));
       currentTimeForDataCollection = new Date(startTimeForDataCollection.getTime()+this.timeOffset);
     }
     else if (this.timeRangeSelected == this.PAST_7_DAYS){
       this.noOfDivvyDataSamplesRequested = this.FRAMES_PER_WEEK;
-      startTimeForDataCollection = new Date(currentTime.getTime()- (7 * 24 * -60 * 60 * 1000));
+      startTimeForDataCollection = new Date(currentTime.getTime()- (7 * 24 * 60 * 60 * 1000));
       currentTimeForDataCollection = new Date(startTimeForDataCollection.getTime()+this.timeOffset);
     }
 

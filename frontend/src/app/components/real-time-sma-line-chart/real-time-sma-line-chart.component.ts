@@ -336,7 +336,7 @@ export class RealTimeSMALineComponent implements OnInit {
                     uniqueDocks.forEach(element => {
                         var timeFromDocks = new Date(element.lastCommunicationTime.replace(/-/g,'/').toString());
                         var timeLastOneHour = new Date(timeFromDocks.getTime()-60 * 60 * 1000);
-                        var timeLast24Hours = new Date(timeFromDocks.getTime()-(24 * -60 * 60 * 1000));
+                        var timeLast24Hours = new Date(timeFromDocks.getTime()-(24 * 60 * 60 * 1000));
                         totalDocks.forEach(totalDocksElement => {
                             var timeFromTotalDocks = new Date(totalDocksElement.lastCommunicationTime.replace(/-/g,'/').toString());
                             if(timeFromTotalDocks>timeLastOneHour){
