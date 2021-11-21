@@ -19,6 +19,6 @@ export interface Dock {
 
   availableDocks: Number;
   lastCommunicationTime: String;
-  sma_hour: number;
-  sma_24hours: number;
+  sma_hour: Number;
+  sma_24hours: Number;
 }
