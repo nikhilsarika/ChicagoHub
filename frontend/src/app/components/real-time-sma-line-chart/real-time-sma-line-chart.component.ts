@@ -363,7 +363,7 @@ export class RealTimeSMALineComponent implements OnInit {
             }
         });
         var sum : Number= 0;
-        var sma : Any;
+        var sma : any;
         this.validDocks.forEach(totalDocksElement => {
             sum = sum + totalDocksElement.availableDocks;
         });
