@@ -344,7 +344,9 @@ export class RealTimeSMALineComponent implements OnInit {
                 this.validDocks.push(element as Dock);
             }
         });
+        console.log('log4: validDocks')
         console.log(this.validDocks);
+        console.log('log5: end of logs')
    }
 
    private getUniqueListBy(arr, key) {
