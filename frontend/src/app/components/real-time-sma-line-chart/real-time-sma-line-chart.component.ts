@@ -349,8 +349,8 @@ export class RealTimeSMALineComponent implements OnInit {
                                 this.validDocks24Hours.push(totalDocksElement as Dock);
                             }
                         });
-                        console.log('log 8 : validDocks24Hours');
-                        console.log(this.validDocks24Hours);
+                        // console.log('log 8 : validDocks24Hours');
+                        // console.log(this.validDocks24Hours);
                         var sum : number= 0;
                         var sma : any;
                         var sum24 : number= 0;
@@ -365,6 +365,10 @@ export class RealTimeSMALineComponent implements OnInit {
                         sma24 = sum24 / this.validDocks24Hours.length;
                         console.log('log 6 : sma '+sma);
                         console.log('log 7 : sma24 '+sma24);
+                        element.sma_hour = sma;
+                        element.sma_24hours = sma24;
+                        console.log('log 8 : element after updatation');
+                        console.log(element);
                     });
                 }
            }
