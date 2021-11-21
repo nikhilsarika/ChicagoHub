@@ -55,6 +55,7 @@ export class RealTimeSMALineComponent implements OnInit {
     private width: number;
     docks: Dock[];
     validDocks: Dock[];
+    validDocks24Hours : Dock[];
     requiredDockData : Dock[] ;
     timeRangeSelected: string;
 
