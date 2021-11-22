@@ -375,24 +375,25 @@ export class RealTimeSMALineComponent implements OnInit {
                         // console.log('log 8 : element after updatation');
                         // console.log(element);
 
-                        this.movingAverageLine = d3Shape.line()
-                        .x( (d: any) => this.x(new Date(d.lastCommunicationTime.replace(/-/g,'/').toString()) ))
-                        .y( (d: any) => this.y(d.smaHour) );
-                        this.svg.append('path')
-                        .datum(uniqueDocks)
-                        .attr('class', 'sma_line_1hr')
-                        .attr('d', this.movingAverageLine);
-
-
-                        this.movingAverageLine1 = d3Shape.line()
-                        .x( (d: any) => this.x(new Date(d.lastCommunicationTime.replace(/-/g,'/').toString()) ))
-                        .y( (d: any) => this.y(d.sma24hours) );
-                        this.svg.append('path')
-                        .datum(uniqueDocks)
-                        .attr('class', 'sma_line_24hr')
-                        .attr('d', this.movingAverageLine1);
+                        
                     });
                 }
+                this.movingAverageLine = d3Shape.line()
+                .x( (d: any) => this.x(new Date(d.lastCommunicationTime.replace(/-/g,'/').toString()) ))
+                .y( (d: any) => this.y(d.smaHour) );
+                this.svg.append('path')
+                .datum(uniqueDocks)
+                .attr('class', 'sma_line_1hr')
+                .attr('d', this.movingAverageLine);
+
+
+                this.movingAverageLine1 = d3Shape.line()
+                .x( (d: any) => this.x(new Date(d.lastCommunicationTime.replace(/-/g,'/').toString()) ))
+                .y( (d: any) => this.y(d.sma24hours) );
+                this.svg.append('path')
+                .datum(uniqueDocks)
+                .attr('class', 'sma_line_24hr')
+                .attr('d', this.movingAverageLine1);
            }
        );
     //    this.create_d3_movingAverageLine(this.uniqueDocks);
