@@ -199,8 +199,8 @@ export class RealTimeSMALineComponent implements OnInit {
                    this.create_d3_chart_legend(timeRange);
                    this.create_d3_chart_X_Y_Axis(timeRange);
                    this.create_d3_line();
-                   this.create_d3_movingAverageLine();
-                   this.create_d3_movingAverageLine1();
+                //    this.create_d3_movingAverageLine();
+                //    this.create_d3_movingAverageLine1();
                    
              });
    }
@@ -378,6 +378,8 @@ export class RealTimeSMALineComponent implements OnInit {
                 }
            }
        );
+       this.create_d3_movingAverageLine(this.uniqueDocks);
+       this.create_d3_movingAverageLine1(this.uniqueDocks);
    }
 
 
@@ -385,12 +387,12 @@ export class RealTimeSMALineComponent implements OnInit {
     return [...new Map(arr.map(item => [item[key], item])).values()]
    }
 
-   private create_d3_movingAverageLine1() {
+   private create_d3_movingAverageLine1(docks) {
     this.movingAverageLine1 = d3Shape.line()
          .x( (d: any) => this.x(new Date(d.lastCommunicationTime.replace(/-/g,'/').toString()) ))
          .y( (d: any) => this.y(d.sma24hours) );
     this.svg.append('path')
-         .datum(this.uniqueDocks)
+         .datum(docks)
          .attr('class', 'sma_line_24hr')
          .attr('d', this.movingAverageLine1);
 
@@ -400,10 +402,10 @@ export class RealTimeSMALineComponent implements OnInit {
     private sleep(ms: number) {
     return new Promise(resolve => setTimeout(resolve, ms));
     }
-    private create_d3_movingAverageLine() {
+    private create_d3_movingAverageLine(docks) {
         console.log('log 10 : inside moving average line');
         console.log(this.uniqueDocks);
-        this.sleep(10000);
+        // this.sleep(10000);
         console.log(this.uniqueDocks[0]);
         console.log('smaHour '+this.uniqueDocks[0].smaHour);
         console.log('availableDocks '+this.uniqueDocks[0].availableDocks);
@@ -413,7 +415,7 @@ export class RealTimeSMALineComponent implements OnInit {
              .x( (d: any) => this.x(new Date(d.lastCommunicationTime.replace(/-/g,'/').toString()) ))
              .y( (d: any) => this.y(d.smaHour) );
         this.svg.append('path')
-             .datum(this.uniqueDocks)
+             .datum(docks)
              .attr('class', 'sma_line_1hr')
              .attr('d', this.movingAverageLine);
     
