@@ -183,25 +183,15 @@ export class RealTimeSMALineComponent implements OnInit {
         placesService
           .getDocks()
              .subscribe((data: Dock[]) => {
-                   
-                //    console.log("all docks: "+this.docks)
                    this.uniqueDocks = this.getUniqueListBy(data,'lastCommunicationTime') as Dock[];
-                //    console.log('log1: unique docks')
                    this.claculate_sma(this.uniqueDocks,this.uniqueDocks[0].stationName);
-                //    console.log(this.uniqueDocks);
                    this.docks = this.uniqueDocks;
-                   
-                //    console.log('log 9 : uniqueDocks after updatation');
-                //    console.log(this.uniqueDocks);
                    this.updateChart();
                    this.initSvg();
                    this.initAxis();
                    this.create_d3_chart_legend(timeRange);
                    this.create_d3_chart_X_Y_Axis(timeRange);
                    this.create_d3_line();
-                //    this.create_d3_movingAverageLine();
-                //    this.create_d3_movingAverageLine1();
-                   
              });
    }
 
@@ -354,8 +344,7 @@ export class RealTimeSMALineComponent implements OnInit {
                                 this.validDocks24Hours.push(totalDocksElement as Dock);
                             }
                         });
-                        // console.log('log 8 : validDocks24Hours');
-                        // console.log(this.validDocks24Hours);
+                        
                         var sum : number= 0;
                         var sma : any;
                         var sum24 : number= 0;
@@ -374,8 +363,7 @@ export class RealTimeSMALineComponent implements OnInit {
                         console.log('log 7 : sma24 '+sma24);
                         element.smaHour = Number(sma);
                         element.sma24hours = Number(sma24);
-                        // console.log('log 8 : element after updatation');
-                        // console.log(element);
+                        
 
                         
                     });
@@ -398,8 +386,6 @@ export class RealTimeSMALineComponent implements OnInit {
                 .attr('d', this.movingAverageLine1);
            }
        );
-    //    this.create_d3_movingAverageLine(this.uniqueDocks);
-    //    this.create_d3_movingAverageLine1(this.uniqueDocks);
    }
 
 
@@ -407,40 +393,9 @@ export class RealTimeSMALineComponent implements OnInit {
     return [...new Map(arr.map(item => [item[key], item])).values()]
    }
 
-   private create_d3_movingAverageLine1(docks) {
-    this.movingAverageLine1 = d3Shape.line()
-         .x( (d: any) => this.x(new Date(d.lastCommunicationTime.replace(/-/g,'/').toString()) ))
-         .y( (d: any) => this.y(d.sma24hours) );
-    this.svg.append('path')
-         .datum(docks)
-         .attr('class', 'sma_line_24hr')
-         .attr('d', this.movingAverageLine1);
+   
 
-
-    }
-
-    private sleep(ms: number) {
-    return new Promise(resolve => setTimeout(resolve, ms));
-    }
-    private create_d3_movingAverageLine(docks) {
-        console.log('log 10 : inside moving average line');
-        console.log(docks);
-        // this.sleep(10000);
-        console.log(this.uniqueDocks[0]);
-        console.log('smaHour '+this.uniqueDocks[0].smaHour);
-        console.log('availableDocks '+this.uniqueDocks[0].availableDocks);
-        console.log('type of smaHour '+typeof this.uniqueDocks[0].smaHour);
-        console.log('type of availableDocks '+typeof this.uniqueDocks[0].availableDocks);
-        this.movingAverageLine = d3Shape.line()
-             .x( (d: any) => this.x(new Date(d.lastCommunicationTime.replace(/-/g,'/').toString()) ))
-             .y( (d: any) => this.y(d.smaHour) );
-        this.svg.append('path')
-             .datum(docks)
-             .attr('class', 'sma_line_1hr')
-             .attr('d', this.movingAverageLine);
     
-    
-    }
 
 
 
