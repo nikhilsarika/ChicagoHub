@@ -998,8 +998,8 @@ async function get_divvy_station_log(stationName, timeRange) {
                   "stationName": hit._source.stationName,
                   "availableDocks": hit._source.availableDocks,
                   "lastCommunicationTime": hit._source.lastCommunicationTime,
-                  "sma24hours": hit._source.availableDocks,
-                  "smaHour": hit._source.availableDocks,
+                  // "sma24hours": hit._source.availableDocks,
+                  // "smaHour": hit._source.availableDocks,
 
       };
       docks_found.push(docks);
