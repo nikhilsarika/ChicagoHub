@@ -359,8 +359,6 @@ export class RealTimeSMALineComponent implements OnInit {
                         // sma24 = Math.floor(sum24 / this.validDocks24Hours.length);
                         sma = sum / this.validDocks.length;
                         sma24 = sum24 / this.validDocks24Hours.length;
-                        console.log('log 6 : sma '+sma);
-                        console.log('log 7 : sma24 '+sma24);
                         element.smaHour = Number(sma);
                         element.sma24hours = Number(sma24);
                         
