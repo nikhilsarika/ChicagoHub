@@ -331,7 +331,7 @@ export class RealTimeSMALineComponent implements OnInit {
    private claculate_sma(uniqueDocks){
        this.validDocks = [];
        this.validDocks24Hours = [];
-       this.placesService.getStationDocksLog(this.stationSelected.stationName,'48 HOUR').subscribe(
+       this.placesService.getStationDocksLog(this.placesService.getStationSelected(),'48 HOUR').subscribe(
            docksData => {
                 console.log('log2: docksData')
                 console.log(docksData);
