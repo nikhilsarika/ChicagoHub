@@ -21,4 +21,5 @@ export interface Dock {
   lastCommunicationTime: String;
   smaHour: Number;
   sma24hours: Number;
+  stationName : String;
 }

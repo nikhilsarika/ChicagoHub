@@ -129,7 +129,7 @@ export class RealTimeSMALineComponent implements OnInit {
 
     if (this.SMALineChart !== undefined) {
         this.SMALineChart.unsubscribe();
-}
+    }
 
        this.placesService.getStationSelected().subscribe((data: Station) => {
          this.stationSelected = data;
@@ -187,7 +187,7 @@ export class RealTimeSMALineComponent implements OnInit {
                 //    console.log("all docks: "+this.docks)
                    this.uniqueDocks = this.getUniqueListBy(data,'lastCommunicationTime') as Dock[];
                 //    console.log('log1: unique docks')
-                   this.claculate_sma(this.uniqueDocks);
+                   this.claculate_sma(this.uniqueDocks,this.uniqueDocks[0].stationName);
                 //    console.log(this.uniqueDocks);
                    this.docks = this.uniqueDocks;
                    
@@ -328,10 +328,10 @@ export class RealTimeSMALineComponent implements OnInit {
 
    }
 
-   private claculate_sma(uniqueDocks){
+   private claculate_sma(uniqueDocks,stationName){
        this.validDocks = [];
        this.validDocks24Hours = [];
-       this.placesService.getStationDocksLog(this.stationSelected.stationName,'48 HOUR').subscribe(
+       this.placesService.getStationDocksLog(stationName,'48 HOUR').subscribe(
            docksData => {
                 console.log('log2: docksData')
                 console.log(docksData);
