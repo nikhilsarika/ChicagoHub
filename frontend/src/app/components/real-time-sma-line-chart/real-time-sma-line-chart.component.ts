@@ -395,8 +395,8 @@ export class RealTimeSMALineComponent implements OnInit {
                 }
            }
        );
-       this.create_d3_movingAverageLine(this.uniqueDocks);
-       this.create_d3_movingAverageLine1(this.uniqueDocks);
+    //    this.create_d3_movingAverageLine(this.uniqueDocks);
+    //    this.create_d3_movingAverageLine1(this.uniqueDocks);
    }
 
 
