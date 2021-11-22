@@ -36,7 +36,6 @@ export class RealTimeLineComponent implements OnInit {
 
      stationSelected:Station;
      value:number;
-     SMALineChart:Subscription;
      LineChart: Subscription;
      stationNameSelected: string;
      title: string;
@@ -74,8 +73,8 @@ export class RealTimeLineComponent implements OnInit {
 
 
      ngOnInit() {
-       if (this.SMALineChart !== undefined) {
-               this.SMALineChart.unsubscribe();
+       if (this.LineChart !== undefined) {
+               this.LineChart.unsubscribe();
            }
          this.timeRangeSelected ="1 HOUR";
          this.stationNameSelected = this.placesService.stationNameSelected;
@@ -101,8 +100,8 @@ export class RealTimeLineComponent implements OnInit {
 
     createPriodicTaskToPullStationDataFromServer(){
 
-        if (this.SMALineChart !== undefined) {
-                this.SMALineChart.unsubscribe();
+        if (this.LineChart !== undefined) {
+                this.LineChart.unsubscribe();
         }
 
         this.placesService.getStationSelected().subscribe((data: Station) => {
@@ -132,8 +131,8 @@ export class RealTimeLineComponent implements OnInit {
 
 
     create_d3_chart(stationName,placesService,timeRange) {
-      if (this.SMALineChart !== undefined) {
-               this.SMALineChart.unsubscribe();
+      if (this.LineChart !== undefined) {
+               this.LineChart.unsubscribe();
       }
 
       this.stationNameSelected = stationName;
