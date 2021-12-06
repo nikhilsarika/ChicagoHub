@@ -782,12 +782,13 @@ async function get_all_divvy_stations_log(timeRange, newTimeRangeSelection) {
             time_stamp_var_2 = time_stamp_var_4 .toISOString().replace('Z', '').replace('T', ' ').slice(0, -4);
             
 
-            console.log("time stamp start : "+time_stamp_var_2);
-            console.log("time stamp start : "+time_stamp_var_3);
+            
             sizeVal = 100000;
             scrollVal='15s';
           }
   }
+  console.log("time stamp start : "+time_stamp_var_2);
+  console.log("time stamp end : "+time_stamp_var_3);
 
 
 
