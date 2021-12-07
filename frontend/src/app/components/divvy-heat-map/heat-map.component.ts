@@ -286,7 +286,7 @@ export class HeatMapComponent implements OnInit{
       }
       locationsOfAvailableDocksInDivvyStations.push(divvy_dock_station_location);
     }
-
+    console.log(locationsOfAvailableDocksInDivvyStations)
     this.heatMapData = locationsOfAvailableDocksInDivvyStations;
 
     this.heatmap = new google.maps.visualization.HeatmapLayer({
