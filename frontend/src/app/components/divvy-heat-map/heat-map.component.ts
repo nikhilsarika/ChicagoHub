@@ -282,7 +282,6 @@ export class HeatMapComponent implements OnInit{
     console.log("data",this.covidData);
 
     for (let i = 0; i < this.covidData.length; i++) {
-      console.log("latitude",this.covidData[i].latitude)
       let divvy_dock_station_location = {
         location: new google.maps.LatLng(this.covidData[i].latitude, this.covidData[i].longitude),
         weight: this.covidData[i].totalDocks
