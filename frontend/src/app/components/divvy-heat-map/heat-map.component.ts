@@ -52,7 +52,7 @@ export class HeatMapComponent implements OnInit{
     gradientStep = -1;
     newGradient;
     distinct = [];
-    stations:Station[];
+    // stations:Station[];
     covidData:CovidData[];
     heatMapData: any[];
     timeArray:any;
