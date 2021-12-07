@@ -255,7 +255,7 @@ export class HeatMapComponent implements OnInit{
 
         // Now clear the HeatMap and then plot the data on the heatmap
         this.clearHeatMap();
-        //console.log('data in range'+data);
+        
         this.plot_availableDocksInDivvyStations_on_heatMap(data);
         
 
