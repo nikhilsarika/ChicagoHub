@@ -1100,33 +1100,33 @@ async function get_all_covid_data(timeRange, newTimeRangeSelection) {
 
 
 
-  if(timeRange  == PAST_24_HOURS ){
+  // if(timeRange  == PAST_24_HOURS ){
 
-        if(newTimeRangeSelection){
-          isBeginningOfTimeRangeSet = false;
-        }
+  //       if(newTimeRangeSelection){
+  //         isBeginningOfTimeRangeSet = false;
+  //       }
 
 
-        if(! isBeginningOfTimeRangeSet){
+  //       if(! isBeginningOfTimeRangeSet){
 
-          isBeginningOfTimeRangeSet = true;
-          var myEndDateTime = new Date();
+  //         isBeginningOfTimeRangeSet = true;
+  //         var myEndDateTime = new Date();
 
-          var MS_PER_MINUTE = 60000;
-          var myStartDate = new Date(myEndDateTime -  24*60* MS_PER_MINUTE);
-          var twoMinutesAfter =  moment(myStartDate).add(60, 'm').toDate();
+  //         var MS_PER_MINUTE = 60000;
+  //         var myStartDate = new Date(myEndDateTime -  24*60* MS_PER_MINUTE);
+  //         var twoMinutesAfter =  moment(myStartDate).add(60, 'm').toDate();
 
-          var myStartDate_iso = myStartDate .toISOString().replace('Z', '').replace('T', ' ').slice(0, -4);
-          var twoMinutesAfter_iso = twoMinutesAfter .toISOString().replace('Z', '').replace('T', ' ').slice(0, -4);
+  //         var myStartDate_iso = myStartDate .toISOString().replace('Z', '').replace('T', ' ').slice(0, -4);
+  //         var twoMinutesAfter_iso = twoMinutesAfter .toISOString().replace('Z', '').replace('T', ' ').slice(0, -4);
 
           
           
 
-          sizeVal = 300;
-          scrollsize = 10000;
-          scrollVal='15s';
-        }
-  }
+  //         sizeVal = 300;
+  //         scrollsize = 10000;
+  //         scrollVal='15s';
+  //       }
+  // }
 
 
 
@@ -1195,8 +1195,9 @@ async function get_all_covid_data(timeRange, newTimeRangeSelection) {
   const covid_query = {
     // give the query a unique name
     name: 'covid_query',
-    text: ' SELECT * FROM covid_data WHERE "weekStart" >= $1 AND "weekEnd" <= $2',
-    values: [time_stamp_var_2, time_stamp_var_3]
+    text: ' SELECT * FROM covid_data',
+    // text: ' SELECT * FROM covid_data WHERE "weekStart" >= $1 AND "weekEnd" <= $2',
+    // values: [time_stamp_var_2, time_stamp_var_3]
   }
     
     results = await pgClientForCovidData.query(covid_query);
@@ -1235,14 +1236,14 @@ async function get_all_covid_data(timeRange, newTimeRangeSelection) {
     // }
 
 
-  if(timeRange == PAST_24_HOURS){
+  // if(timeRange == PAST_24_HOURS){
 
-    myStartDate = twoMinutesAfter;
-    twoMinutesAfter = new Date(twoMinutesAfter + 60* MS_PER_MINUTE);
+  //   myStartDate = twoMinutesAfter;
+  //   twoMinutesAfter = new Date(twoMinutesAfter + 60* MS_PER_MINUTE);
 
 
 
-  }
+  // }
 
 
   // else if(timeRange == PAST_7_DAYS){
