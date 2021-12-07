@@ -1207,9 +1207,9 @@ async function get_all_covid_data(timeRange, newTimeRangeSelection) {
       for (i = 0; i < results.rows.length; i++) {
         var covid_record = {
                       "id": results.rows[i].id,
-                      "latitude": response.rows[i].latitude,
-                      "longitude": response.rows[i].longitude,
-                      "totalDocks": response.rows[i].casesWeekly
+                      "latitude": results.rows[i].latitude,
+                      "longitude": results.rows[i].longitude,
+                      "totalDocks": results.rows[i].casesWeekly
           };
   
         covid_records_found.push(covid_record);
