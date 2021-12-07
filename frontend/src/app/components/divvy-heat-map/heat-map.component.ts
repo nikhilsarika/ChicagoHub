@@ -277,7 +277,7 @@ export class HeatMapComponent implements OnInit{
     let locationsOfAvailableDocksInDivvyStations=[];
 
     this.covidData = availableDocksInDivvyStations;
-    //console.log("data",this.stations.length);
+    console.log("data",this.covidData);
 
     for (let i = 0; i < this.covidData.length; i++) {
       let divvy_dock_station_location = {
@@ -286,7 +286,7 @@ export class HeatMapComponent implements OnInit{
       }
       locationsOfAvailableDocksInDivvyStations.push(divvy_dock_station_location);
     }
-    console.log(locationsOfAvailableDocksInDivvyStations)
+    console.log("after getting lat long",locationsOfAvailableDocksInDivvyStations)
     this.heatMapData = locationsOfAvailableDocksInDivvyStations;
 
     this.heatmap = new google.maps.visualization.HeatmapLayer({
