@@ -1110,39 +1110,16 @@ async function get_all_covid_data(timeRange, newTimeRangeSelection) {
         if(! isBeginningOfTimeRangeSet){
 
           isBeginningOfTimeRangeSet = true;
-          var start_datetime_var = new Date();
-          var start_datetime_var_2 = new Date();
-          var targetTime = new Date(start_datetime_var);
-          var tzDifference = targetTime.getTimezoneOffset();
+          var myEndDateTime = new Date();
 
-          //convert the offset to milliseconds, add to targetTime, and make a new Date
-          start_datetime_var = new Date(targetTime.getTime() - tzDifference * 60 * 1000);
-          start_datetime_var_2 = new Date(targetTime.getTime() - tzDifference * 60 * 1000);
+          var MS_PER_MINUTE = 60000;
+          var myStartDate = new Date(myEndDateTime -  24*60* MS_PER_MINUTE);
+          var twoMinutesAfter = new Date(myStartDate +  60* MS_PER_MINUTE);
 
-          go_back_in_time_var = start_datetime_var.getHours() - 24;
+          var myStartDate_iso = myStartDate .toISOString().replace('Z', '').replace('T', ' ').slice(0, -4);
+          var twoMinutesAfter_iso = twoMinutesAfter .toISOString().replace('Z', '').replace('T', ' ').slice(0, -4);
 
-          start_datetime_var_2.setHours(go_back_in_time_var);
-          time_stamp_var_2 = start_datetime_var_2.toISOString().slice(0,-5).replace('Z', ' ').replace('T', ' ');
-          time_stamp_var_4  = new Date(new Date(time_stamp_var_2).getTime() - new Date(time_stamp_var_2).getTimezoneOffset() * 60 * 1000);
-
-          var go_forward_in_time_var_2 = time_stamp_var_4 .getHours() + 1 ;
-          time_stamp_var_4 .setHours(go_forward_in_time_var_2);
-
-          time_stamp_var_3 = time_stamp_var_4 .toISOString().replace('Z', '').replace('T', ' ').slice(0, -4);
-
-          time_stamp_var_1 = start_datetime_var.toISOString().slice(0,-5).replace('Z', ' ').replace('T', ' ');
-
-          // Recalculate lower bound for the time-window
-          // Take 2 minutes sample on the top of every hour for the past 24 hours
-          // This is NOT the best we could do..
-          // We can calculate the average for every hour and use that 
-          // as the average sample for the heatmap to display 
-          time_stamp_var_4  = new Date(new Date(time_stamp_var_3).getTime() - new Date(time_stamp_var_3).getTimezoneOffset() * 60 * 1000);
-
-          diffMinutes = time_stamp_var_4 .getMinutes() - 2 ;
-          time_stamp_var_4 .setMinutes(diffMinutes);
-
-          time_stamp_var_2 = time_stamp_var_4 .toISOString().replace('Z', '').replace('T', ' ').slice(0, -4);
+          
           
 
           sizeVal = 300;
@@ -1209,8 +1186,8 @@ async function get_all_covid_data(timeRange, newTimeRangeSelection) {
             scrollVal='15s';
           }
   }
-  console.log("time stamp start : "+time_stamp_var_2);
-  console.log("time stamp end : "+time_stamp_var_3);
+  console.log("time stamp start : "+myStartDate_iso);
+  console.log("time stamp end : "+twoMinutesAfter_iso);
 
 
   const covid_query = {
@@ -1237,20 +1214,7 @@ async function get_all_covid_data(timeRange, newTimeRangeSelection) {
       }
 
 
-    
-  // collect all the records
 
-  // console.log('results.hits.total = ', results.hits.total);
-
-  // results.hits.hits.forEach(function (hit) {
-  //   allRecords.push(hit);
-  //   var docks = {
-  //               "availableDocks": hit._source.availableDocks,
-  //               "latitude": hit._source.latitude,
-  //               "longitude": hit._source.longitude
-  //       };
-  //     all_docks_found.push(docks);
-  // });
 
 
             
@@ -1271,26 +1235,9 @@ async function get_all_covid_data(timeRange, newTimeRangeSelection) {
 
   else if(timeRange == PAST_24_HOURS){
 
-    time_stamp_var_2 = time_stamp_var_3;
+    myStartDate = twoMinutesAfter;
+    twoMinutesAfter = new Date(twoMinutesAfter + 60* MS_PER_MINUTE);
 
-    time_stamp_var_4  = new Date(new Date(time_stamp_var_2).getTime() - new Date(time_stamp_var_2).getTimezoneOffset() * 60 * 1000);
-
-    go_forward_in_time_var = time_stamp_var_4 .getHours() + 1 ;
-    time_stamp_var_4 .setHours(go_forward_in_time_var);
-
-    time_stamp_var_3 = time_stamp_var_4 .toISOString().replace('Z', '').replace('T', ' ').slice(0, -4);
-
-    // Recalculate lower bound fo the time-window
-    // Take 2 minutes sample on the top of every hour for the past 24 hours
-    // This is NOT the best we could do..
-    // We can calculate the average for every hour and use that 
-    // as the average sample for the heatmap to display 
-    time_stamp_var_4  = new Date(new Date(time_stamp_var_3).getTime() - new Date(time_stamp_var_3).getTimezoneOffset() * 60 * 1000);
-
-    diffMinutes = time_stamp_var_4 .getMinutes() - 2 ;
-    time_stamp_var_4 .setMinutes(diffMinutes);
-
-    time_stamp_var_2 = time_stamp_var_4 .toISOString().replace('Z', '').replace('T', ' ').slice(0, -4);
 
 
   }
