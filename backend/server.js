@@ -73,6 +73,7 @@ const esClient = new elasticsearch.Client({
 
 var conString = "pg://postgres:root@127.0.0.1:5432/chicago_divvy_stations_status";
 var pg_connection_divvy_trips = "pg://postgres:root@127.0.0.1:5432/chicago_divvy_trips";
+var pg_connection_covid = "pg://postgres:root@127.0.0.1:5432/covid_realtime_data";
 
 
 
@@ -81,6 +82,9 @@ pgClient.connect();
 
 var pgClientForDivvyTrips = new pg.Client(pg_connection_divvy_trips);
 pgClientForDivvyTrips.connect();
+
+var pgClientForCovidData = new pg.Client(pg_connection_covid);
+pgClientForCovidData.connect();
 
 
 
@@ -105,6 +109,7 @@ router.all('*', function (req, res, next) {
 
 var places_found = [];
 var stations_found = [];
+var covid_records_found = [];
 var docks_found = [];
 var all_docks_found=[];
 
@@ -280,14 +285,17 @@ router.route('/stations/find').post((req, res) => {
 
 router.route('/stations/fetch_all_divvy_stations_data').post((req, res) => {
 
-    get_all_divvy_stations_log(req.body.timeRange,req.body.newTimeRangeSelection).then(function (response) {
-        var hits = response;
+    // get_all_divvy_stations_log(req.body.timeRange,req.body.newTimeRangeSelection).then(function (response) {
+    //     var hits = response;
 
-        res.json(all_docks_found);
-    });
+    //     res.json(all_docks_found);
+    // });
 
+    get_all_covid_data(req.body.timeRange,req.body.newTimeRangeSelection).then(function (response) {
+      var hits = response;
 
-
+      res.json(covid_records_found);
+  });
 
 });
 
@@ -1037,3 +1045,286 @@ app.listen(4000, () => {
 
             console.log('Express server running on port 4000')
 });
+
+
+
+
+async function get_all_covid_data(timeRange, newTimeRangeSelection) {
+  var start_datetime_var = new Date();
+  var scrollVal;
+
+
+  all_docks_found = [];
+
+  if(timeRange.includes(PAST_HOUR)){
+    if(newTimeRangeSelection){
+      isBeginningOfTimeRangeSet = false;
+
+    }
+
+    if(!isBeginningOfTimeRangeSet){
+
+      all_docks_found = [];
+
+      isBeginningOfTimeRangeSet = true;
+
+      var start_datetime_var = new Date();
+      var start_datetime_var_2 = new Date();
+      var targetTime = new Date(start_datetime_var);
+      var tzDifference = targetTime.getTimezoneOffset();
+
+      //convert the offset to milliseconds, add to targetTime, and make a new Date
+      start_datetime_var = new Date(targetTime.getTime() - tzDifference * 60 * 1000);
+      start_datetime_var_2 = new Date(targetTime.getTime() - tzDifference * 60 * 1000);
+      go_back_in_time_var = start_datetime_var.getHours() - 1;
+
+      start_datetime_var_2.setHours(go_back_in_time_var);
+      time_stamp_var_2 = start_datetime_var_2.toISOString().slice(0,-5).replace('Z', ' ').replace('T', ' ');
+
+      time_stamp_var_1 = start_datetime_var.toISOString().slice(0,-5).replace('Z', ' ').replace('T', ' ');
+      time_stamp_var_4  = new Date(new Date(time_stamp_var_2).getTime() - new Date(time_stamp_var_2).getTimezoneOffset() * 60 * 1000);
+
+      var go_forward_in_time_var_2 = time_stamp_var_4 .getMinutes() + 2 ;
+      time_stamp_var_4 .setMinutes(go_forward_in_time_var_2);
+
+      time_stamp_var_3 = time_stamp_var_4 .toISOString().replace('Z', '').replace('T', ' ').slice(0, -4);
+
+      time_stamp_var_1 = start_datetime_var.toISOString().slice(0,-5).replace('Z', ' ').replace('T', ' ');
+
+
+      sizeVal = 1000000;
+      scrollVal='1s';
+    }
+
+  }
+
+
+
+  else if(timeRange  == PAST_24_HOURS ){
+
+        if(newTimeRangeSelection){
+          isBeginningOfTimeRangeSet = false;
+        }
+
+
+        if(! isBeginningOfTimeRangeSet){
+
+          isBeginningOfTimeRangeSet = true;
+          var start_datetime_var = new Date();
+          var start_datetime_var_2 = new Date();
+          var targetTime = new Date(start_datetime_var);
+          var tzDifference = targetTime.getTimezoneOffset();
+
+          //convert the offset to milliseconds, add to targetTime, and make a new Date
+          start_datetime_var = new Date(targetTime.getTime() - tzDifference * 60 * 1000);
+          start_datetime_var_2 = new Date(targetTime.getTime() - tzDifference * 60 * 1000);
+
+          go_back_in_time_var = start_datetime_var.getHours() - 24;
+
+          start_datetime_var_2.setHours(go_back_in_time_var);
+          time_stamp_var_2 = start_datetime_var_2.toISOString().slice(0,-5).replace('Z', ' ').replace('T', ' ');
+          time_stamp_var_4  = new Date(new Date(time_stamp_var_2).getTime() - new Date(time_stamp_var_2).getTimezoneOffset() * 60 * 1000);
+
+          var go_forward_in_time_var_2 = time_stamp_var_4 .getHours() + 1 ;
+          time_stamp_var_4 .setHours(go_forward_in_time_var_2);
+
+          time_stamp_var_3 = time_stamp_var_4 .toISOString().replace('Z', '').replace('T', ' ').slice(0, -4);
+
+          time_stamp_var_1 = start_datetime_var.toISOString().slice(0,-5).replace('Z', ' ').replace('T', ' ');
+
+          // Recalculate lower bound for the time-window
+          // Take 2 minutes sample on the top of every hour for the past 24 hours
+          // This is NOT the best we could do..
+          // We can calculate the average for every hour and use that 
+          // as the average sample for the heatmap to display 
+          time_stamp_var_4  = new Date(new Date(time_stamp_var_3).getTime() - new Date(time_stamp_var_3).getTimezoneOffset() * 60 * 1000);
+
+          diffMinutes = time_stamp_var_4 .getMinutes() - 2 ;
+          time_stamp_var_4 .setMinutes(diffMinutes);
+
+          time_stamp_var_2 = time_stamp_var_4 .toISOString().replace('Z', '').replace('T', ' ').slice(0, -4);
+          
+
+          sizeVal = 300;
+          scrollsize = 10000;
+          scrollVal='15s';
+        }
+  }
+
+
+
+  else if(timeRange.includes(PAST_7_DAYS)){
+
+          if(newTimeRangeSelection){  
+            isBeginningOfTimeRangeSet = false;
+  
+          }
+
+
+          if(! isBeginningOfTimeRangeSet){
+
+            isBeginningOfTimeRangeSet = true;
+            var start_datetime_var = new Date();
+            var start_datetime_var_2 = new Date();
+            var targetTime = new Date(start_datetime_var);
+            var tzDifference = targetTime.getTimezoneOffset();
+
+
+
+            //convert the offset to milliseconds, add to targetTime, and make a new Date
+            start_datetime_var = new Date(targetTime.getTime() - tzDifference * 60 * 1000);
+            start_datetime_var_2 = new Date(targetTime.getTime() - tzDifference * 60 * 1000);
+
+            go_back_in_time_var = start_datetime_var.getHours() - 168;
+
+            start_datetime_var_2.setHours(go_back_in_time_var);
+            time_stamp_var_2 = start_datetime_var_2.toISOString().slice(0,-5).replace('Z', ' ').replace('T', ' ');
+
+            time_stamp_var_1 = start_datetime_var.toISOString().slice(0,-5).replace('Z', ' ').replace('T', ' ');
+            time_stamp_var_4  = new Date(new Date(time_stamp_var_2).getTime() - new Date(time_stamp_var_2).getTimezoneOffset() * 60 * 1000);
+
+            var go_forward_in_time_var_2 = time_stamp_var_4 .getHours() + 24 ;
+            time_stamp_var_4 .setHours(go_forward_in_time_var_2);
+
+            time_stamp_var_3 = time_stamp_var_4 .toISOString().replace('Z', '').replace('T', ' ').slice(0, -4);
+
+            time_stamp_var_1 = start_datetime_var.toISOString().slice(0,-5).replace('Z', ' ').replace('T', ' ');
+
+
+            // Recalculate lower bound fo the time-window
+            // Take 2 minutes sample on the top of every hour of every day for the past 7 days
+            // This is NOT the best we could do...
+            // We can calculate the average for every hour and use that 
+            // as the average sample for the heatmap to display 
+            time_stamp_var_4  = new Date(new Date(time_stamp_var_3).getTime() - new Date(time_stamp_var_3).getTimezoneOffset() * 60 * 1000);
+
+            diffMinutes = time_stamp_var_4 .getMinutes() - 2 ;
+            time_stamp_var_4 .setMinutes(diffMinutes);
+
+            time_stamp_var_2 = time_stamp_var_4 .toISOString().replace('Z', '').replace('T', ' ').slice(0, -4);
+            
+
+            
+            sizeVal = 100000;
+            scrollVal='15s';
+          }
+  }
+  console.log("time stamp start : "+time_stamp_var_2);
+  console.log("time stamp end : "+time_stamp_var_3);
+
+
+  const covid_query = {
+    // give the query a unique name
+    name: 'covid_query',
+    text: ' SELECT * FROM covid_data WHERE login_date >= $1 AND login_date < $2',
+    values: [time_stamp_var_2, time_stamp_var_3]
+  }
+    
+    results = await pgClientForCovidData.query(query);
+    console.log("Results from db : ", results)
+    covid_records_found = [];
+  
+      for (i = 0; i < results.rows.length; i++) {
+        var covid_record = {
+                      "id": results.rows[i].id,
+                      "latitude": response.rows[i].latitude,
+                      "longitude": response.rows[i].longitude,
+                      "totalDocks": response.rows[i].casesWeekly
+          };
+  
+        covid_records_found.push(covid_record);
+  
+      }
+
+
+    
+  // collect all the records
+
+  // console.log('results.hits.total = ', results.hits.total);
+
+  // results.hits.hits.forEach(function (hit) {
+  //   allRecords.push(hit);
+  //   var docks = {
+  //               "availableDocks": hit._source.availableDocks,
+  //               "latitude": hit._source.latitude,
+  //               "longitude": hit._source.longitude
+  //       };
+  //     all_docks_found.push(docks);
+  // });
+
+
+            
+  // Adjust lower bound and upper bound for the time-window
+  // for data collection for the next round from ElasticSearch
+
+    if(timeRange.includes(PAST_HOUR)){
+        time_stamp_var_2 = time_stamp_var_3;
+
+        time_stamp_var_4  = new Date(new Date(time_stamp_var_2).getTime() - new Date(time_stamp_var_2).getTimezoneOffset() * 60 * 1000);
+
+        diffMinutes = time_stamp_var_4 .getMinutes() + 2 ;
+        time_stamp_var_4 .setMinutes(diffMinutes);
+
+        time_stamp_var_3 = time_stamp_var_4 .toISOString().replace('Z', '').replace('T', ' ').slice(0, -4);
+    }
+
+
+  else if(timeRange == PAST_24_HOURS){
+
+    time_stamp_var_2 = time_stamp_var_3;
+
+    time_stamp_var_4  = new Date(new Date(time_stamp_var_2).getTime() - new Date(time_stamp_var_2).getTimezoneOffset() * 60 * 1000);
+
+    go_forward_in_time_var = time_stamp_var_4 .getHours() + 1 ;
+    time_stamp_var_4 .setHours(go_forward_in_time_var);
+
+    time_stamp_var_3 = time_stamp_var_4 .toISOString().replace('Z', '').replace('T', ' ').slice(0, -4);
+
+    // Recalculate lower bound fo the time-window
+    // Take 2 minutes sample on the top of every hour for the past 24 hours
+    // This is NOT the best we could do..
+    // We can calculate the average for every hour and use that 
+    // as the average sample for the heatmap to display 
+    time_stamp_var_4  = new Date(new Date(time_stamp_var_3).getTime() - new Date(time_stamp_var_3).getTimezoneOffset() * 60 * 1000);
+
+    diffMinutes = time_stamp_var_4 .getMinutes() - 2 ;
+    time_stamp_var_4 .setMinutes(diffMinutes);
+
+    time_stamp_var_2 = time_stamp_var_4 .toISOString().replace('Z', '').replace('T', ' ').slice(0, -4);
+
+
+  }
+
+
+  else if(timeRange == PAST_7_DAYS){
+
+
+    time_stamp_var_2 = time_stamp_var_3;
+
+    time_stamp_var_4  = new Date(new Date(time_stamp_var_2).getTime() - new Date(time_stamp_var_2).getTimezoneOffset() * 60 * 1000);
+
+    go_forward_in_time_var = time_stamp_var_4 .getHours() + 24 ;
+    time_stamp_var_4 .setHours(go_forward_in_time_var);
+
+    time_stamp_var_3 = time_stamp_var_4 .toISOString().replace('Z', '').replace('T', ' ').slice(0, -4);
+
+
+
+    // Recalculate lower bound fo the time-window
+    // Take 2 minutes sample on the top of every hour of every day for the past 7 days
+    // This is NOT the best we could do...
+    // We can calculate the average for every hour and use that 
+    // as the average sample for the heatmap to display 
+    time_stamp_var_4  = new Date(new Date(time_stamp_var_3).getTime() - new Date(time_stamp_var_3).getTimezoneOffset() * 60 * 1000);
+
+    diffMinutes = time_stamp_var_4 .getMinutes() - 2 ;
+    time_stamp_var_4 .setMinutes(diffMinutes);
+
+    time_stamp_var_2 = time_stamp_var_4 .toISOString().replace('Z', '').replace('T', ' ').slice(0, -4);
+ 
+
+  }
+  
+
+
+}
