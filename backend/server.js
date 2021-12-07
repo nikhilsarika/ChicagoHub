@@ -1216,7 +1216,7 @@ async function get_all_covid_data(timeRange, newTimeRangeSelection) {
   const covid_query = {
     // give the query a unique name
     name: 'covid_query',
-    text: ' SELECT * FROM covid_data WHERE weekStart >= $1 AND weekEnd < $2',
+    text: ' SELECT * FROM covid_data WHERE "weekStart" >= $1 AND "weekEnd" <= $2',
     values: [time_stamp_var_2, time_stamp_var_3]
   }
     
