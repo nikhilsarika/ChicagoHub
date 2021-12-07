@@ -1114,7 +1114,7 @@ async function get_all_covid_data(timeRange, newTimeRangeSelection) {
 
           var MS_PER_MINUTE = 60000;
           var myStartDate = new Date(myEndDateTime -  24*60* MS_PER_MINUTE);
-          var twoMinutesAfter = new Date(myStartDate +  60* MS_PER_MINUTE);
+          var twoMinutesAfter =  moment(myStartDate).add(60, 'm').toDate();
 
           var myStartDate_iso = myStartDate .toISOString().replace('Z', '').replace('T', ' ').slice(0, -4);
           var twoMinutesAfter_iso = twoMinutesAfter .toISOString().replace('Z', '').replace('T', ' ').slice(0, -4);
