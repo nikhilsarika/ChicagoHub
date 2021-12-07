@@ -1188,6 +1188,8 @@ async function get_all_covid_data(timeRange, newTimeRangeSelection) {
   }
   console.log("time stamp start : "+myStartDate_iso);
   console.log("time stamp end : "+twoMinutesAfter_iso);
+  console.log("time stamp start : "+myStartDate);
+  console.log("time stamp end : "+twoMinutesAfter);
 
 
   const covid_query = {
