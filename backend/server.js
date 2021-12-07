@@ -1220,7 +1220,7 @@ async function get_all_covid_data(timeRange, newTimeRangeSelection) {
     values: [time_stamp_var_2, time_stamp_var_3]
   }
     
-    results = await pgClientForCovidData.query(query);
+    results = await pgClientForCovidData.query(covid_query);
     console.log("Results from db : ", results)
     covid_records_found = [];
   
