@@ -280,7 +280,7 @@ export class HeatMapComponent implements OnInit{
     for (let i = 0; i < this.stations.length; i++) {
       let divvy_dock_station_location = {
         location: new google.maps.LatLng(this.stations[i].latitude, this.stations[i].longitude),
-        weight: this.stations[i].availableDocks
+        weight: this.stations[i].totalDocks
       }
       locationsOfAvailableDocksInDivvyStations.push(divvy_dock_station_location);
     }
