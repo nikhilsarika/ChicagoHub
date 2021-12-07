@@ -2,7 +2,8 @@ import { AfterViewInit, Component,Input,ElementRef, OnChanges, OnInit, SimpleCha
 import * as heatmap from 'heatmap.js'
 import { google } from 'google-maps';
 
-import { Station } from '../../station';
+// import { Station } from '../../station';
+import { CovidData } from '../../station';
 import { PlacesService } from '../../places.service';
 import { Observable } from "rxjs";
 import 'rxjs/add/observable/interval';
@@ -52,6 +53,7 @@ export class HeatMapComponent implements OnInit{
     newGradient;
     distinct = [];
     stations:Station[];
+    covidData:CovidData[];
     heatMapData: any[];
     timeArray:any;
     timeOffset = 0;
@@ -214,7 +216,7 @@ export class HeatMapComponent implements OnInit{
 
 
     if(this.noOfDivvyDataSamplesProcessed < this.noOfDivvyDataSamplesRequested){
-      this.placesService.get_all_divvy_stations_data(this.timeRangeSelected, timeRangeSelection).subscribe((data: Station[]) => {
+      this.placesService.get_all_divvy_stations_data(this.timeRangeSelected, timeRangeSelection).subscribe((data: CovidData[]) => {
         //console.log('getDivvyStationsStatus -- noOfDivvyDataSamplesProcessed=', this.noOfDivvyDataSamplesProcessed);
         this.noOfDivvyDataSamplesProcessed = this.noOfDivvyDataSamplesProcessed + 1;
 
@@ -274,13 +276,13 @@ export class HeatMapComponent implements OnInit{
 
     let locationsOfAvailableDocksInDivvyStations=[];
 
-    this.stations = availableDocksInDivvyStations;
+    this.covidData = availableDocksInDivvyStations;
     //console.log("data",this.stations.length);
 
-    for (let i = 0; i < this.stations.length; i++) {
+    for (let i = 0; i < this.covidData.length; i++) {
       let divvy_dock_station_location = {
-        location: new google.maps.LatLng(this.stations[i].latitude, this.stations[i].longitude),
-        weight: this.stations[i].totalDocks
+        location: new google.maps.LatLng(this.covidData[i].latitude, this.covidData[i].longitude),
+        weight: this.covidData[i].totalDocks
       }
       locationsOfAvailableDocksInDivvyStations.push(divvy_dock_station_location);
     }
