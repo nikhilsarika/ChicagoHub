@@ -41,6 +41,7 @@ export class HeatMapComponent implements OnInit{
     PAST_HOUR =  'Past Hour';
     PAST_24_HOURS =  'Last 24 Hours';
     PAST_7_DAYS =  'Last 7 Days';
+    PAST_1_YEAR =  'Last 1 Year';
 
     newTimeRangeSelection = true;
     notNewTimeRangeSelection = false;
@@ -70,7 +71,8 @@ export class HeatMapComponent implements OnInit{
     timeValues = [
       { id : this.PAST_HOUR, value: this.PAST_HOUR},
       { id : this.PAST_24_HOURS, value: this.PAST_24_HOURS},
-      { id : this.PAST_7_DAYS, value: this.PAST_7_DAYS}
+      { id : this.PAST_7_DAYS, value: this.PAST_7_DAYS},
+      { id : this.PAST_1_YEAR, value: this.PAST_1_YEAR}
     ];
 
     private map: google.maps.Map = null;
@@ -255,7 +257,7 @@ export class HeatMapComponent implements OnInit{
 
         // Now clear the HeatMap and then plot the data on the heatmap
         this.clearHeatMap();
-        
+        console.log("before plot")
         this.plot_availableDocksInDivvyStations_on_heatMap(data);
         
 
@@ -280,6 +282,7 @@ export class HeatMapComponent implements OnInit{
     console.log("data",this.covidData);
 
     for (let i = 0; i < this.covidData.length; i++) {
+      console.log("latitude",this.covidData[i].latitude)
       let divvy_dock_station_location = {
         location: new google.maps.LatLng(this.covidData[i].latitude, this.covidData[i].longitude),
         weight: this.covidData[i].totalDocks
